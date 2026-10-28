@@ -1,0 +1,11 @@
+### Пустой поиск типов
+GET {{$dotenv OBJECTS_URL}}/types?q=
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Пробельный поиск типов
+GET {{$dotenv OBJECTS_URL}}/types?q=%20
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Поиск типов, больше 20
+GET {{$dotenv OBJECTS_URL}}/types?q=а
+Authorization: {{$dotenv OBJECTS_AUTH}}

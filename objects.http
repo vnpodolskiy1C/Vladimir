@@ -1,0 +1,5 @@
+# Запросы к сервису objects. Адрес и авторизация — в .env рядом.
+
+### Найти типы по слову
+GET {{$dotenv OBJECTS_URL}}/types?q=партнер
+Authorization: {{$dotenv OBJECTS_AUTH}}
