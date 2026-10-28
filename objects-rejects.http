@@ -37,3 +37,27 @@ Authorization: {{$dotenv OBJECTS_AUTH}}
 ### Неподдерживаемое поле файла
 GET {{$dotenv OBJECTS_URL}}/type?name=Справочник._ДемоНоменклатураПрисоединенныеФайлы
 Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Поиск без строки
+GET {{$dotenv OBJECTS_URL}}/search?type=Справочник._ДемоПартнеры&q=
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Поиск без типа
+GET {{$dotenv OBJECTS_URL}}/search?type=&q=Альфа
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Поиск неизвестного вида
+GET {{$dotenv OBJECTS_URL}}/search?type=РегистрСведений.КурсыВалют&q=Альфа
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Поиск неизвестного справочника
+GET {{$dotenv OBJECTS_URL}}/search?type=Справочник.НетТакого&q=Альфа
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Поиск документа по номеру
+GET {{$dotenv OBJECTS_URL}}/search?type=Документ._ДемоСчетНаОплатуПокупателю&q=0
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Поиск номенклатуры длиннее страницы
+GET {{$dotenv OBJECTS_URL}}/search?type=Справочник._ДемоНоменклатура&q=а
+Authorization: {{$dotenv OBJECTS_AUTH}}

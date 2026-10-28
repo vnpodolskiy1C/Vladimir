@@ -7,3 +7,7 @@ Authorization: {{$dotenv OBJECTS_AUTH}}
 ### Описать тип
 GET {{$dotenv OBJECTS_URL}}/type?name=Справочник._ДемоПартнеры
 Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Найти объекты типа
+GET {{$dotenv OBJECTS_URL}}/search?type=Справочник._ДемоПартнеры&q=Альфа
+Authorization: {{$dotenv OBJECTS_AUTH}}
