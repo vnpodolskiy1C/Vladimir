@@ -3,3 +3,7 @@
 ### Найти типы по слову
 GET {{$dotenv OBJECTS_URL}}/types?q=партнер
 Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Описать тип
+GET {{$dotenv OBJECTS_URL}}/type?name=Справочник._ДемоПартнеры
+Authorization: {{$dotenv OBJECTS_AUTH}}

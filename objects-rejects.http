@@ -9,3 +9,31 @@ Authorization: {{$dotenv OBJECTS_AUTH}}
 ### Поиск типов, больше 20
 GET {{$dotenv OBJECTS_URL}}/types?q=а
 Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Неизвестное имя справочника
+GET {{$dotenv OBJECTS_URL}}/type?name=Справочник.НетТакого
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Неподдерживаемый вид
+GET {{$dotenv OBJECTS_URL}}/type?name=РегистрСведений.КурсыВалют
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Имя без точки
+GET {{$dotenv OBJECTS_URL}}/type?name=Партнеры
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Лишняя точка
+GET {{$dotenv OBJECTS_URL}}/type?name=Справочник._ДемоПартнеры.Лишнее
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Описание документа
+GET {{$dotenv OBJECTS_URL}}/type?name=Документ._ДемоСчетНаОплатуПокупателю
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Описание подчиненного справочника
+GET {{$dotenv OBJECTS_URL}}/type?name=Справочник._ДемоКонтактныеЛицаПартнеров
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Неподдерживаемое поле файла
+GET {{$dotenv OBJECTS_URL}}/type?name=Справочник._ДемоНоменклатураПрисоединенныеФайлы
+Authorization: {{$dotenv OBJECTS_AUTH}}
