@@ -62,6 +62,10 @@ Authorization: {{$dotenv OBJECTS_AUTH}}
 GET {{$dotenv OBJECTS_URL}}/search?type=Справочник._ДемоНоменклатура&q=а
 Authorization: {{$dotenv OBJECTS_AUTH}}
 
+### Поиск справочника без наименования
+GET {{$dotenv OBJECTS_URL}}/search?type=Справочник.ХранилищеДвоичныхДанных&q=а
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
 ### Прочитать существующего партнера
 GET {{$dotenv OBJECTS_URL}}/object?type=Справочник._ДемоПартнеры&id={{$dotenv PARTNER_ID}}
 Authorization: {{$dotenv OBJECTS_AUTH}}
