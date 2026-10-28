@@ -81,3 +81,80 @@ Authorization: {{$dotenv OBJECTS_AUTH}}
 ### Чтение неподдерживаемого вида
 GET {{$dotenv OBJECTS_URL}}/object?type=РегистрСведений.КурсыВалют&id=00000000-0000-0000-0000-000000000000
 Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Создание группы
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{
+  "type": "Справочник._ДемоПартнеры",
+  "header": {
+    "Наименование": "Группа Ромашка",
+    "ЭтоГруппа": true,
+    "ВидПартнера": "ЮридическоеЛицо"
+  },
+  "tables": {}
+}
+
+### Подчиненный справочник без владельца
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{
+  "type": "Справочник._ДемоКонтактныеЛицаПартнеров",
+  "header": {
+    "Наименование": "Иван"
+  },
+  "tables": {}
+}
+
+### Запись незаписываемого поля
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{
+  "type": "Справочник._ДемоПартнеры",
+  "header": {
+    "Наименование": "Ромашка",
+    "ВидПартнера": "ЮридическоеЛицо",
+    "Ссылка": "00000000-0000-0000-0000-000000000000"
+  },
+  "tables": {}
+}
+
+### Запись дополнительных реквизитов БСП
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{
+  "type": "Справочник._ДемоПартнеры",
+  "header": {
+    "Наименование": "Ромашка",
+    "ВидПартнера": "ЮридическоеЛицо"
+  },
+  "tables": {
+    "ДополнительныеРеквизиты": []
+  }
+}
+
+### Битый JSON
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{ "type":
+
+### Неподдерживаемый вид в теле
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{
+  "type": "РегистрСведений.КурсыВалют",
+  "header": {},
+  "tables": {}
+}
