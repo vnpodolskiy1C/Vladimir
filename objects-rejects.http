@@ -61,3 +61,23 @@ Authorization: {{$dotenv OBJECTS_AUTH}}
 ### Поиск номенклатуры длиннее страницы
 GET {{$dotenv OBJECTS_URL}}/search?type=Справочник._ДемоНоменклатура&q=а
 Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Прочитать существующего партнера
+GET {{$dotenv OBJECTS_URL}}/object?type=Справочник._ДемоПартнеры&id={{$dotenv PARTNER_ID}}
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Некорректный UUID
+GET {{$dotenv OBJECTS_URL}}/object?type=Справочник._ДемоПартнеры&id=не-uuid
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### UUID в верхнем регистре
+GET {{$dotenv OBJECTS_URL}}/object?type=Справочник._ДемоПартнеры&id=9203492B-EA3E-11DE-8634-001D600D9AD2
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Неизвестный UUID
+GET {{$dotenv OBJECTS_URL}}/object?type=Справочник._ДемоПартнеры&id=00000000-0000-0000-0000-000000000000
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Чтение неподдерживаемого вида
+GET {{$dotenv OBJECTS_URL}}/object?type=РегистрСведений.КурсыВалют&id=00000000-0000-0000-0000-000000000000
+Authorization: {{$dotenv OBJECTS_AUTH}}
