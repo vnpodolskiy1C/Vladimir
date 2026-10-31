@@ -1,0 +1,60 @@
+# Запросы к сервису objects. Адрес, авторизация и идентификаторы — в .env рядом.
+# После создания партнера запишите id ответа в CREATED_PARTNER_ID и затем выполните чтение.
+
+### Найти типы по слову
+GET {{$dotenv OBJECTS_URL}}/types?q=партнер
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Описать тип
+GET {{$dotenv OBJECTS_URL}}/type?name=Справочник._ДемоПартнеры
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Найти объекты типа
+GET {{$dotenv OBJECTS_URL}}/search?type=Справочник._ДемоПартнеры&q=Альфа
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Создать партнера
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{
+  "type": "Справочник._ДемоПартнеры",
+  "header": {
+    "Наименование": "Ромашка",
+    "ВидПартнера": "ЮридическоеЛицо"
+  },
+  "tables": {}
+}
+
+### Прочитать созданного партнера
+GET {{$dotenv OBJECTS_URL}}/object?type=Справочник._ДемоПартнеры&id={{$dotenv CREATED_PARTNER_ID}}
+Authorization: {{$dotenv OBJECTS_AUTH}}
+
+### Создать непроведенный счет
+POST {{$dotenv OBJECTS_URL}}/object
+Authorization: {{$dotenv OBJECTS_AUTH}}
+Content-Type: application/json
+
+{
+  "type": "Документ._ДемоСчетНаОплатуПокупателю",
+  "header": {
+    "Дата": "2026-10-28T12:00:00",
+    "Партнер": "{{$dotenv PARTNER_ID}}",
+    "Организация": "{{$dotenv ORGANIZATION_ID}}",
+    "Ответственный": "{{$dotenv RESPONSIBLE_ID}}",
+    "Подразделение": "{{$dotenv DEPARTMENT_ID}}",
+    "ВалютаДокумента": "{{$dotenv CURRENCY_ID}}"
+  },
+  "tables": {
+    "Товары": [
+      {
+        "Номенклатура": "{{$dotenv PRODUCT_ID}}",
+        "Количество": 1,
+        "Цена": 100,
+        "Сумма": 100,
+        "Всего": 100
+      }
+    ]
+  }
+}
