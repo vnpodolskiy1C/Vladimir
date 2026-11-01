@@ -22,17 +22,13 @@ export function unknownTool(name: string): string {
   return `${PREFIX}Неизвестный инструмент ${name}.`;
 }
 
-export function notConnected(name: string): string {
-  return `Инструмент ${name} ещё не подключён к сервису объектов.`;
+export function filterValueArg(key: string): string {
+  return `${PREFIX}Значение отбора ${key} должно быть строкой, числом, булевым или объектом.`;
 }
 
-// Инструменты регистров объявлены, но маршруты сервиса для них ещё не готовы.
-const REGISTER_TOOLS = [
-  "describe_register",
-  "read_register_slice",
-  "read_register_history",
-  "write_register_record",
-];
+export function filterKeyArg(key: string): string {
+  return `${PREFIX}Ключ отбора ${key} совпадает с параметром запроса.`;
+}
 
 type Args = Record<string, unknown>;
 type Built = { request: ServiceRequest } | { error: string };
@@ -86,6 +82,102 @@ function buildGet(spec: GetSpec, args: Args): Built {
   return { request: { method: "GET", path: spec.path, query } };
 }
 
+function filterQueryValue(key: string, value: unknown): string | { error: string } {
+  if (typeof value === "string") {
+    return value;
+  }
+  if (typeof value === "number") {
+    return String(value);
+  }
+  if (typeof value === "boolean") {
+    return value ? "true" : "false";
+  }
+  if (isPlainObject(value)) {
+    return JSON.stringify(value);
+  }
+  return { error: filterValueArg(key) };
+}
+
+function buildRegisterGet(
+  path: "/register" | "/register/slice" | "/register/history",
+  args: Args,
+  withDate: boolean,
+  withFilter: boolean,
+): Built {
+  if (!has(args, "name")) {
+    return { error: missingArg("name") };
+  }
+  const name = args.name;
+  if (typeof name !== "string") {
+    return { error: stringArg("name") };
+  }
+  const query: Array<[string, string]> = [["name", name]];
+  if (withDate && has(args, "date")) {
+    const date = args.date;
+    if (typeof date !== "string") {
+      return { error: stringArg("date") };
+    }
+    query.push(["date", date]);
+  }
+  if (withFilter && has(args, "filter")) {
+    const filter = args.filter;
+    if (!isPlainObject(filter)) {
+      return { error: objectArg("filter") };
+    }
+    for (const [key, value] of Object.entries(filter)) {
+      if (key === "name" || key === "date") {
+        return { error: filterKeyArg(key) };
+      }
+      const encoded = filterQueryValue(key, value);
+      if (typeof encoded !== "string") {
+        return encoded;
+      }
+      query.push([key, encoded]);
+    }
+  }
+  return { request: { method: "GET", path, query } };
+}
+
+function buildRecord(args: Args): Built {
+  if (!has(args, "name")) {
+    return { error: missingArg("name") };
+  }
+  const name = args.name;
+  if (typeof name !== "string") {
+    return { error: stringArg("name") };
+  }
+  if (!has(args, "period")) {
+    return { error: missingArg("period") };
+  }
+  const period = args.period;
+  if (typeof period !== "string") {
+    return { error: stringArg("period") };
+  }
+  if (!has(args, "dimensions")) {
+    return { error: missingArg("dimensions") };
+  }
+  const dimensions = args.dimensions;
+  if (!isPlainObject(dimensions)) {
+    return { error: objectArg("dimensions") };
+  }
+  if (!has(args, "resources")) {
+    return { error: missingArg("resources") };
+  }
+  const resources = args.resources;
+  if (!isPlainObject(resources)) {
+    return { error: objectArg("resources") };
+  }
+  return {
+    request: {
+      method: "POST",
+      path: "/register/record",
+      query: [],
+      body: JSON.stringify({ name, period, dimensions, resources }),
+      contentType: "application/json; charset=utf-8",
+    },
+  };
+}
+
 function buildCreate(args: Args): Built {
   if (!has(args, "type")) {
     return { error: missingArg("type") };
@@ -127,8 +219,14 @@ export async function executeTool(
     built = buildGet(GET_TOOLS[name]!, input);
   } else if (name === "create_object") {
     built = buildCreate(input);
-  } else if (REGISTER_TOOLS.includes(name)) {
-    return { text: notConnected(name), isError: true };
+  } else if (name === "describe_register") {
+    built = buildRegisterGet("/register", input, false, false);
+  } else if (name === "read_register_slice") {
+    built = buildRegisterGet("/register/slice", input, true, true);
+  } else if (name === "read_register_history") {
+    built = buildRegisterGet("/register/history", input, false, true);
+  } else if (name === "write_register_record") {
+    built = buildRecord(input);
   } else {
     built = { error: unknownTool(name) };
   }

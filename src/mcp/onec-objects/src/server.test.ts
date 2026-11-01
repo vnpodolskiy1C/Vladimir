@@ -7,7 +7,7 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 
 import type { ServiceClient, ServiceRequest } from "./client.ts";
-import { missingArg, notConnected, stringArg } from "./execute.ts";
+import { missingArg, stringArg } from "./execute.ts";
 import {
   CREATE_ANNOTATIONS,
   READ_ANNOTATIONS,
@@ -206,17 +206,19 @@ test("инструменты регистров объявлены, запись
   }
 });
 
-test("инструмент регистра пока отвечает заглушкой и не ходит в сервис", async () => {
-  const { client: service, requests } = fakeClient("{}");
+test("describe_register доходит до сервиса одним запросом", async () => {
+  const text = '{"name":"РегистрСведений.КурсыВалют"}';
+  const { client: service, requests } = fakeClient(text);
   const { client, close } = await connect(service);
   try {
     const result = await client.callTool({
       name: "describe_register",
       arguments: { name: "РегистрСведений.КурсыВалют" },
     });
-    assert.deepEqual(result.content, [{ type: "text", text: notConnected("describe_register") }]);
-    assert.equal(result.isError, true);
-    assert.equal(requests.length, 0);
+    assert.deepEqual(result.content, [{ type: "text", text }]);
+    assert.notEqual(result.isError, true);
+    assert.equal(requests.length, 1);
+    assert.equal(requests[0]!.path, "/register");
   } finally {
     await close();
   }

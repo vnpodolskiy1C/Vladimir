@@ -4,6 +4,8 @@ import { test } from "node:test";
 import type { ServiceClient, ServiceRequest, ToolResult } from "./client.ts";
 import {
   executeTool,
+  filterKeyArg,
+  filterValueArg,
   limitArg,
   missingArg,
   objectArg,
@@ -176,6 +178,126 @@ for (const [title, name, args, text] of invalidCalls) {
     assert.equal(requests.length, 0);
   });
 }
+
+test("описание регистра — GET /register с name", async () => {
+  const { client, requests } = fakeClient();
+
+  await executeTool("describe_register", { name: "РегистрСведений.КурсыВалют" }, client);
+
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0]!.method, "GET");
+  assert.equal(requests[0]!.path, "/register");
+  assert.deepEqual(requests[0]!.query, [["name", "РегистрСведений.КурсыВалют"]]);
+});
+
+test("срез собирает name, date и отбор по порядку", async () => {
+  const { client, requests } = fakeClient();
+  const filter = {
+    Номенклатура: "u",
+    Количество: 2,
+    Флаг: true,
+    Составное: { type: "CatalogRef.А", value: "v" },
+  };
+
+  await executeTool(
+    "read_register_slice",
+    { name: "Р", date: "2026-10-29", filter },
+    client,
+  );
+  await executeTool("read_register_slice", { name: "Р", filter }, client);
+  await executeTool("read_register_slice", { name: "Р" }, client);
+
+  assert.equal(requests[0]!.method, "GET");
+  assert.equal(requests[0]!.path, "/register/slice");
+  assert.deepEqual(requests[0]!.query, [
+    ["name", "Р"],
+    ["date", "2026-10-29"],
+    ["Номенклатура", "u"],
+    ["Количество", "2"],
+    ["Флаг", "true"],
+    ["Составное", '{"type":"CatalogRef.А","value":"v"}'],
+  ]);
+  assert.deepEqual(requests[1]!.query, [
+    ["name", "Р"],
+    ["Номенклатура", "u"],
+    ["Количество", "2"],
+    ["Флаг", "true"],
+    ["Составное", '{"type":"CatalogRef.А","value":"v"}'],
+  ]);
+  assert.deepEqual(requests[2]!.query, [["name", "Р"]]);
+});
+
+test("история без date", async () => {
+  const { client, requests } = fakeClient();
+
+  await executeTool(
+    "read_register_history",
+    { name: "Р", filter: { Валюта: "u" } },
+    client,
+  );
+
+  assert.equal(requests[0]!.method, "GET");
+  assert.equal(requests[0]!.path, "/register/history");
+  assert.deepEqual(requests[0]!.query, [
+    ["name", "Р"],
+    ["Валюта", "u"],
+  ]);
+});
+
+test("запись шлёт одно тело из четырёх ключей", async () => {
+  const { client, requests } = fakeClient();
+
+  await executeTool(
+    "write_register_record",
+    {
+      name: "Р",
+      period: "2026-10-29",
+      dimensions: { А: "u" },
+      resources: { Цена: 1500 },
+      лишний: 1,
+    },
+    client,
+  );
+
+  assert.equal(requests.length, 1);
+  const request = requests[0]!;
+  assert.equal(request.method, "POST");
+  assert.equal(request.path, "/register/record");
+  assert.equal(request.contentType, "application/json; charset=utf-8");
+  assert.equal(
+    request.body,
+    JSON.stringify({
+      name: "Р",
+      period: "2026-10-29",
+      dimensions: { А: "u" },
+      resources: { Цена: 1500 },
+    }),
+  );
+});
+
+test("неверные вызовы регистров не ходят в сервис", async () => {
+  const { client, requests } = fakeClient();
+  const calls: Array<[string, unknown, string]> = [
+    ["read_register_slice", { name: "Р", filter: { А: null } }, filterValueArg("А")],
+    ["read_register_slice", { name: "Р", filter: { А: [1] } }, filterValueArg("А")],
+    ["read_register_slice", { name: "Р", filter: { date: "x" } }, filterKeyArg("date")],
+    ["read_register_history", { name: "Р", filter: { name: "x" } }, filterKeyArg("name")],
+    ["read_register_slice", { name: "Р", filter: [] }, objectArg("filter")],
+    ["read_register_slice", { name: "Р", date: 1 }, stringArg("date")],
+    ["write_register_record", { name: "Р", dimensions: {}, resources: {} }, missingArg("period")],
+    [
+      "write_register_record",
+      { name: "Р", period: "2026-10-29", dimensions: {}, resources: [] },
+      objectArg("resources"),
+    ],
+  ];
+
+  for (const [name, args, text] of calls) {
+    const result = await executeTool(name, args, client);
+    assert.deepEqual(result, { text, isError: true });
+  }
+  assert.equal(requests.length, 0);
+});
 
 test("фразы отказов совпадают с постановкой", () => {
   assert.equal(

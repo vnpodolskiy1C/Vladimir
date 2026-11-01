@@ -6,7 +6,15 @@ export type ToolResult = { text: string; isError: boolean };
 
 export type ServiceRequest = {
   method: "GET" | "POST";
-  path: "/types" | "/type" | "/search" | "/object";
+  path:
+    | "/types"
+    | "/type"
+    | "/search"
+    | "/object"
+    | "/register"
+    | "/register/slice"
+    | "/register/history"
+    | "/register/record";
   query: Array<[string, string]>;
   body?: string;
   contentType?: string;

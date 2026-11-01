@@ -146,6 +146,30 @@ describe("createServiceClient", () => {
     assert.equal(seen[0].url, "/hs/objects/search");
   });
 
+  test("кодирует кириллицу в имени параметра", async () => {
+    const client = createServiceClient(publication);
+
+    await client.request({
+      method: "GET",
+      path: "/register/slice",
+      query: [
+        ["name", "РегистрСведений.КурсыВалют"],
+        ["Валюта", "u"],
+      ],
+    });
+
+    assert.equal(seen.length, 1);
+    assert.equal(
+      seen[0].url,
+      "/hs/objects/register/slice?name="
+        + encodeURIComponent("РегистрСведений.КурсыВалют")
+        + "&"
+        + encodeURIComponent("Валюта")
+        + "="
+        + encodeURIComponent("u"),
+    );
+  });
+
   test("ставит Basic пользователя и пароля в UTF-8", async () => {
     const client = createServiceClient(publication);
     const expected = `Basic ${Buffer.from("Иван:", "utf8").toString("base64")}`;
