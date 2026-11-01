@@ -63,6 +63,26 @@ Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
 GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоРаботникиОрганизаций&date={{$datetime "YYYY-MM-DD"}}&Организация={{$dotenv REGISTER_ORGANIZATION}}&ФизическоеЛицо={{$dotenv REGISTER_PERSON}}
 Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
 
+### Отказ: отбор по ресурсу
+# @name sliceByResource
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоЦеныНоменклатуры&Цена=1
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: срез непериодического регистра
+# @name nonperiodicSlice
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоОтветственныеЛица
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: срез подчинённого регистра
+# @name subordinateSlice
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений.ОтветыНаВопросыАнкет
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: неверная дата среза
+# @name sliceBadDate
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений.КурсыВалют&date=2026-13-01
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
 ### История: все цены товара
 # @name priceHistory
 GET {{$dotenv OBJECT_SERVICE_URL}}/register/history?name=РегистрСведений._ДемоЦеныНоменклатуры&Номенклатура={{$dotenv REGISTER_PRODUCT}}
