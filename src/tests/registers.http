@@ -23,6 +23,26 @@ Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
 GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений._ДемоРаботникиОрганизаций
 Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
 
+### Описание: непериодический регистр
+# @name nonperiodicSchema
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений._ДемоОтветственныеЛица
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: описание подчинённого регистра
+# @name subordinateSchema
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений.ОтветыНаВопросыАнкет
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Поиск: подчинённый регистр не выдаётся
+# @name subordinateTypes
+GET {{$dotenv OBJECT_SERVICE_URL}}/types?q=ОтветыНаВопросыАнкет
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: описание справочника маршрутом регистра
+# @name catalogAsRegister
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=Справочник._ДемоНоменклатура
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
 ### Срез: цена товара сейчас
 # @name priceNow
 GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоЦеныНоменклатуры&date={{$datetime "YYYY-MM-DDTHH:mm:ss"}}&Номенклатура={{$dotenv REGISTER_PRODUCT}}
