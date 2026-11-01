@@ -1,0 +1,562 @@
+{
+"type": "Справочник._ДемоПартнеры",
+"kind": "catalog",
+"title": "Демо: Партнеры",
+"hierarchical": true,
+"hierarchy": "foldersAndItems",
+"subordinate": false,
+"owners": [],
+"fields": [
+{
+"name": "ИмяПредопределенныхДанных",
+"title": "Имя предопределенных данных",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 256,
+"fixedLength": false
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Предопределенный",
+"title": "Предопределенный",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Ссылка",
+"title": "Ссылка",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоПартнеры",
+"kind": "catalog",
+"catalog": "_ДемоПартнеры",
+"searchUrl": "/search?type=Справочник._ДемоПартнеры"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "ПометкаУдаления",
+"title": "Пометка удаления",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "ЭтоГруппа",
+"title": "Это группа",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+],
+"reason": "Группы этим сервисом не создаются"
+},
+{
+"name": "Родитель",
+"title": "Группа партнеров",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоПартнеры",
+"kind": "catalog",
+"catalog": "_ДемоПартнеры",
+"searchUrl": "/search?type=Справочник._ДемоПартнеры"
+}
+]
+},
+{
+"name": "Наименование",
+"title": "Наименование",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 150,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Код",
+"title": "Код",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 9,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Клиент",
+"title": "Клиент",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "Поставщик",
+"title": "Поставщик",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "Конкурент",
+"title": "Конкурент",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "ПрочиеОтношения",
+"title": "Прочие отношения",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "ГруппаДоступа",
+"title": "Группа доступа",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоГруппыДоступаПартнеров",
+"kind": "catalog",
+"catalog": "_ДемоГруппыДоступаПартнеров",
+"searchUrl": "/search?type=Справочник._ДемоГруппыДоступаПартнеров"
+}
+]
+},
+{
+"name": "ВидПартнера",
+"title": "Вид партнера",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Перечисление._ДемоЮридическоеФизическоеЛицо",
+"kind": "enum",
+"enumeration": "_ДемоЮридическоеФизическоеЛицо",
+"values": [
+{
+"name": "ЮридическоеЛицо",
+"title": "Юридическое лицо"
+},
+{
+"name": "ФизическоеЛицо",
+"title": "Физическое лицо"
+},
+{
+"name": "_ДемоИндивидуальныйПредпринимательРасширение",
+"title": "Демо: Индивидуальный предприниматель (из расширения)"
+}
+]
+}
+]
+}
+],
+"tables": [
+{
+"name": "ДополнительныеРеквизиты",
+"title": "Дополнительные реквизиты",
+"writable": false,
+"required": false,
+"fields": [
+{
+"name": "НомерСтроки",
+"title": "",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 5,
+"fractionDigits": 0,
+"nonnegative": true
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Свойство",
+"title": "Свойство",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Дополнительный реквизит / сведение",
+"kind": "unsupported"
+}
+],
+"reason": "Тип поля не поддерживается этой версией: Дополнительный реквизит / сведение"
+},
+{
+"name": "Значение",
+"title": "Значение",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Справочник.ЗначенияСвойствОбъектовИерархия",
+"kind": "catalog",
+"catalog": "ЗначенияСвойствОбъектовИерархия",
+"searchUrl": "/search?type=Справочник.ЗначенияСвойствОбъектовИерархия"
+},
+{
+"name": "boolean",
+"kind": "boolean"
+},
+{
+"name": "Справочник.ЗначенияСвойствОбъектов",
+"kind": "catalog",
+"catalog": "ЗначенияСвойствОбъектов",
+"searchUrl": "/search?type=Справочник.ЗначенияСвойствОбъектов"
+},
+{
+"name": "string",
+"kind": "string",
+"length": 1024,
+"fixedLength": false
+},
+{
+"name": "date",
+"kind": "date",
+"parts": "dateTime"
+},
+{
+"name": "number",
+"kind": "number",
+"digits": 17,
+"fractionDigits": 5,
+"nonnegative": false
+},
+{
+"name": "Справочник._ДемоПартнеры",
+"kind": "catalog",
+"catalog": "_ДемоПартнеры",
+"searchUrl": "/search?type=Справочник._ДемоПартнеры"
+},
+{
+"name": "Справочник.Пользователи",
+"kind": "catalog",
+"catalog": "Пользователи",
+"searchUrl": "/search?type=Справочник.Пользователи"
+}
+],
+"reason": "Дополнительные свойства БСП не поддерживаются этой версией"
+},
+{
+"name": "ТекстоваяСтрока",
+"title": "Текстовая строка",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 0,
+"fixedLength": false
+}
+],
+"reason": "Дополнительные свойства БСП не поддерживаются этой версией"
+}
+],
+"reason": "Дополнительные свойства БСП не поддерживаются этой версией"
+},
+{
+"name": "КонтактнаяИнформация",
+"title": "Контактная информация",
+"writable": true,
+"required": false,
+"fields": [
+{
+"name": "НомерСтроки",
+"title": "",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 5,
+"fractionDigits": 0,
+"nonnegative": true
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Тип",
+"title": "Тип",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Перечисление.ТипыКонтактнойИнформации",
+"kind": "enum",
+"enumeration": "ТипыКонтактнойИнформации",
+"values": [
+{
+"name": "Адрес",
+"title": "Адрес"
+},
+{
+"name": "Телефон",
+"title": "Телефон"
+},
+{
+"name": "АдресЭлектроннойПочты",
+"title": "Адрес электронной почты"
+},
+{
+"name": "Skype",
+"title": "Skype"
+},
+{
+"name": "ВебСтраница",
+"title": "Веб-страница"
+},
+{
+"name": "Факс",
+"title": "Факс"
+},
+{
+"name": "Другое",
+"title": "Другое"
+}
+]
+}
+]
+},
+{
+"name": "Вид",
+"title": "Вид",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник.ВидыКонтактнойИнформации",
+"kind": "catalog",
+"catalog": "ВидыКонтактнойИнформации",
+"searchUrl": "/search?type=Справочник.ВидыКонтактнойИнформации"
+}
+]
+},
+{
+"name": "Представление",
+"title": "Представление",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 500,
+"fixedLength": false
+}
+]
+},
+{
+"name": "ЗначенияПолей",
+"title": "Значения полей",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 0,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Страна",
+"title": "Страна",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 100,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Регион",
+"title": "Регион",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 50,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Город",
+"title": "Город",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 50,
+"fixedLength": false
+}
+]
+},
+{
+"name": "АдресЭП",
+"title": "Адрес ЭП",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 100,
+"fixedLength": false
+}
+]
+},
+{
+"name": "ДоменноеИмяСервера",
+"title": "Доменное имя сервера",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 100,
+"fixedLength": false
+}
+]
+},
+{
+"name": "НомерТелефона",
+"title": "Номер телефона",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 20,
+"fixedLength": false
+}
+]
+},
+{
+"name": "НомерТелефонаБезКодов",
+"title": "Номер телефона без кодов",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 20,
+"fixedLength": false
+}
+]
+},
+{
+"name": "ВидДляСписка",
+"title": "Вид для списка",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник.ВидыКонтактнойИнформации",
+"kind": "catalog",
+"catalog": "ВидыКонтактнойИнформации",
+"searchUrl": "/search?type=Справочник.ВидыКонтактнойИнформации"
+}
+]
+},
+{
+"name": "Значение",
+"title": "Значение",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 0,
+"fixedLength": false
+}
+]
+}
+]
+}
+],
+"rules": {
+"validation": "Окончательное решение принимает штатная проверка заполнения; условные правила зависят от данных и настроек базы",
+"dates": "ISO 8601 без часового пояса, местное время базы",
+"null": "Штатное пустое значение; обязательность проверяет 1С, кроме владельца подчиненного справочника",
+"values": "Сервис не вычисляет реквизиты и записывает переданные значения"
+}
+}

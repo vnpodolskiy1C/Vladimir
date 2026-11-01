@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "invalid_request",
+"message": "Параметр q пуст",
+"details": [
+{
+"path": null,
+"message": "Параметр q пуст"
+}
+]
+}
+}

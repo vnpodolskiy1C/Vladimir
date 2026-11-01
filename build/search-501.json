@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "not_implemented",
+"message": "Маршрут GET /search ещё не реализован",
+"details": [
+{
+"path": null,
+"message": "Маршрут GET /search ещё не реализован"
+}
+]
+}
+}

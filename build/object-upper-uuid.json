@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "invalid_request",
+"message": "Некорректный UUID",
+"details": [
+{
+"path": null,
+"message": "Некорректный UUID"
+}
+]
+}
+}

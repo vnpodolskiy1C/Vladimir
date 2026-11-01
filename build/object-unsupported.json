@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "unsupported_type",
+"message": "Вид метаданных не поддерживается",
+"details": [
+{
+"path": null,
+"message": "Вид метаданных не поддерживается"
+}
+]
+}
+}

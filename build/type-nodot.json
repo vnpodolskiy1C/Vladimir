@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "invalid_request",
+"message": "Ожидается имя вида Вид.Имя",
+"details": [
+{
+"path": null,
+"message": "Ожидается имя вида Вид.Имя"
+}
+]
+}
+}

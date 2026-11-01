@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "not_implemented",
+"message": "Маршрут POST /object ещё не реализован",
+"details": [
+{
+"path": null,
+"message": "Маршрут POST /object ещё не реализован"
+}
+]
+}
+}

@@ -1,0 +1,604 @@
+{
+"type": "Документ._ДемоСчетНаОплатуПокупателю",
+"kind": "document",
+"title": "Демо: Счет на оплату покупателю",
+"hierarchical": false,
+"hierarchy": "none",
+"subordinate": false,
+"owners": [],
+"fields": [
+{
+"name": "Проведен",
+"title": "Проведен",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+],
+"reason": "Документ записывается непроведенным"
+},
+{
+"name": "Ссылка",
+"title": "Ссылка",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Документ._ДемоСчетНаОплатуПокупателю",
+"kind": "document",
+"document": "_ДемоСчетНаОплатуПокупателю",
+"searchUrl": "/search?type=Документ._ДемоСчетНаОплатуПокупателю"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "ПометкаУдаления",
+"title": "Пометка удаления",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Дата",
+"title": "Дата",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "date",
+"kind": "date",
+"parts": "dateTime"
+}
+]
+},
+{
+"name": "Номер",
+"title": "Номер",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 11,
+"fixedLength": false
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "БанковскийСчет",
+"title": "Банковский счет",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоБанковскиеСчета",
+"kind": "catalog",
+"catalog": "_ДемоБанковскиеСчета",
+"searchUrl": "/search?type=Справочник._ДемоБанковскиеСчета"
+}
+]
+},
+{
+"name": "ВалютаДокумента",
+"title": "Валюта документа",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Справочник.Валюты",
+"kind": "catalog",
+"catalog": "Валюты",
+"searchUrl": "/search?type=Справочник.Валюты"
+}
+]
+},
+{
+"name": "ВалютаВзаиморасчетов",
+"title": "Валюта взаиморасчетов",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник.Валюты",
+"kind": "catalog",
+"catalog": "Валюты",
+"searchUrl": "/search?type=Справочник.Валюты"
+}
+]
+},
+{
+"name": "ВидСкидкиНаценки",
+"title": "Вид скидки или наценки",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 10,
+"fixedLength": false
+}
+]
+},
+{
+"name": "ДатаОплаты",
+"title": "Дата оплаты",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "date",
+"kind": "date",
+"parts": "date"
+}
+]
+},
+{
+"name": "Договор",
+"title": "Договор",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоДоговорыКонтрагентов",
+"kind": "catalog",
+"catalog": "_ДемоДоговорыКонтрагентов",
+"searchUrl": "/search?type=Справочник._ДемоДоговорыКонтрагентов"
+}
+]
+},
+{
+"name": "Основание",
+"title": "Основание",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Документ._ДемоЗаказПокупателя",
+"kind": "document",
+"document": "_ДемоЗаказПокупателя",
+"searchUrl": "/search?type=Документ._ДемоЗаказПокупателя"
+}
+]
+},
+{
+"name": "КолонкаПрайсЛиста",
+"title": "Колонка прайс - листа",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 10,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Комментарий",
+"title": "Комментарий",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 0,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Партнер",
+"title": "Партнер",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Справочник._ДемоПартнеры",
+"kind": "catalog",
+"catalog": "_ДемоПартнеры",
+"searchUrl": "/search?type=Справочник._ДемоПартнеры"
+}
+]
+},
+{
+"name": "Контрагент",
+"title": "Контрагент",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоКонтрагенты",
+"kind": "catalog",
+"catalog": "_ДемоКонтрагенты",
+"searchUrl": "/search?type=Справочник._ДемоКонтрагенты"
+}
+]
+},
+{
+"name": "Кратность",
+"title": "Кратность",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 10,
+"fractionDigits": 0,
+"nonnegative": true
+}
+]
+},
+{
+"name": "Курс",
+"title": "Курс",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 10,
+"fractionDigits": 4,
+"nonnegative": true
+}
+]
+},
+{
+"name": "Организация",
+"title": "Организация",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Справочник._ДемоОрганизации",
+"kind": "catalog",
+"catalog": "_ДемоОрганизации",
+"searchUrl": "/search?type=Справочник._ДемоОрганизации"
+}
+]
+},
+{
+"name": "Ответственный",
+"title": "Ответственный",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Справочник.Пользователи",
+"kind": "catalog",
+"catalog": "Пользователи",
+"searchUrl": "/search?type=Справочник.Пользователи"
+}
+]
+},
+{
+"name": "Подразделение",
+"title": "Подразделение",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Справочник._ДемоПодразделения",
+"kind": "catalog",
+"catalog": "_ДемоПодразделения",
+"searchUrl": "/search?type=Справочник._ДемоПодразделения"
+}
+]
+},
+{
+"name": "ПрайсЛист",
+"title": "Прайс - лист",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 10,
+"fixedLength": false
+}
+]
+},
+{
+"name": "ПроцентОплаты",
+"title": "Процент оплаты",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 6,
+"fractionDigits": 3,
+"nonnegative": true
+}
+]
+},
+{
+"name": "СуммаВключаетНДС",
+"title": "Сумма включает НДС",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "СуммаОплаты",
+"title": "Сумма оплаты",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 15,
+"fractionDigits": 2,
+"nonnegative": true
+}
+]
+}
+],
+"tables": [
+{
+"name": "Товары",
+"title": "Товары",
+"writable": true,
+"required": false,
+"fields": [
+{
+"name": "НомерСтроки",
+"title": "",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 5,
+"fractionDigits": 0,
+"nonnegative": true
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Номенклатура",
+"title": "Номенклатура",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Справочник._ДемоНоменклатура",
+"kind": "catalog",
+"catalog": "_ДемоНоменклатура",
+"searchUrl": "/search?type=Справочник._ДемоНоменклатура"
+}
+]
+},
+{
+"name": "Характеристика",
+"title": "Характеристика",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоХарактеристики",
+"kind": "catalog",
+"catalog": "_ДемоХарактеристики",
+"searchUrl": "/search?type=Справочник._ДемоХарактеристики"
+}
+]
+},
+{
+"name": "Количество",
+"title": "Количество",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 15,
+"fractionDigits": 3,
+"nonnegative": true
+}
+]
+},
+{
+"name": "Цена",
+"title": "Цена",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 15,
+"fractionDigits": 2,
+"nonnegative": true
+}
+]
+},
+{
+"name": "Сумма",
+"title": "Сумма",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 15,
+"fractionDigits": 2,
+"nonnegative": true
+}
+]
+},
+{
+"name": "СуммаНДС",
+"title": "Сумма НДС",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 15,
+"fractionDigits": 2,
+"nonnegative": true
+}
+]
+},
+{
+"name": "Всего",
+"title": "Всего",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 15,
+"fractionDigits": 2,
+"nonnegative": true
+}
+]
+}
+]
+},
+{
+"name": "ДополнительныеРеквизиты",
+"title": "Дополнительные реквизиты",
+"writable": false,
+"required": false,
+"fields": [
+{
+"name": "НомерСтроки",
+"title": "",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 5,
+"fractionDigits": 0,
+"nonnegative": true
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Свойство",
+"title": "Свойство",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Дополнительный реквизит / сведение",
+"kind": "unsupported"
+}
+],
+"reason": "Тип поля не поддерживается этой версией: Дополнительный реквизит / сведение"
+},
+{
+"name": "Значение",
+"title": "Значение",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Справочник.ЗначенияСвойствОбъектовИерархия",
+"kind": "catalog",
+"catalog": "ЗначенияСвойствОбъектовИерархия",
+"searchUrl": "/search?type=Справочник.ЗначенияСвойствОбъектовИерархия"
+},
+{
+"name": "boolean",
+"kind": "boolean"
+},
+{
+"name": "Справочник.ЗначенияСвойствОбъектов",
+"kind": "catalog",
+"catalog": "ЗначенияСвойствОбъектов",
+"searchUrl": "/search?type=Справочник.ЗначенияСвойствОбъектов"
+},
+{
+"name": "string",
+"kind": "string",
+"length": 1024,
+"fixedLength": false
+},
+{
+"name": "date",
+"kind": "date",
+"parts": "dateTime"
+},
+{
+"name": "number",
+"kind": "number",
+"digits": 17,
+"fractionDigits": 5,
+"nonnegative": false
+},
+{
+"name": "Справочник._ДемоПартнеры",
+"kind": "catalog",
+"catalog": "_ДемоПартнеры",
+"searchUrl": "/search?type=Справочник._ДемоПартнеры"
+},
+{
+"name": "Справочник.Пользователи",
+"kind": "catalog",
+"catalog": "Пользователи",
+"searchUrl": "/search?type=Справочник.Пользователи"
+}
+],
+"reason": "Дополнительные свойства БСП не поддерживаются этой версией"
+},
+{
+"name": "ТекстоваяСтрока",
+"title": "Текстовая строка",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 0,
+"fixedLength": false
+}
+],
+"reason": "Дополнительные свойства БСП не поддерживаются этой версией"
+}
+],
+"reason": "Дополнительные свойства БСП не поддерживаются этой версией"
+}
+],
+"rules": {
+"validation": "Окончательное решение принимает штатная проверка заполнения; условные правила зависят от данных и настроек базы",
+"dates": "ISO 8601 без часового пояса, местное время базы",
+"null": "Штатное пустое значение; обязательность проверяет 1С, кроме владельца подчиненного справочника",
+"values": "Сервис не вычисляет реквизиты и записывает переданные значения"
+}
+}

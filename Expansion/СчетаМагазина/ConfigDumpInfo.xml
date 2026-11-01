@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.21">
+	<ConfigVersions>
+		<Metadata name="CommonModule.СчетаМагазинаДанные" id="60e583c4-25a7-45c6-8543-c7f78015b43c" configVersion="e16d9177eeebd930c218f706434acaeae539e4ab"/>
+		<Metadata name="CommonModule.СчетаМагазинаДанные.Module" id="60e583c4-25a7-45c6-8543-c7f78015b43c.0" configVersion="f117967d1c449589fb649398be7e28e54f227690"/>
+		<Metadata name="CommonModule.СчетаМагазинаЗначения" id="da6b2335-535e-44d1-9ed9-0622a112bd7f" configVersion="d53d777350ae86416beee4c101d68219aab82481"/>
+		<Metadata name="CommonModule.СчетаМагазинаЗначения.Module" id="da6b2335-535e-44d1-9ed9-0622a112bd7f.0" configVersion="4c3d3a312cce3b2af01aadb25be125c735622eb1"/>
+		<Metadata name="CommonModule.СчетаМагазинаМетаданные" id="de129c8d-2fbb-4ae4-8c9b-a08e3d9a8411" configVersion="d6efba87559d63819201340b1061fadbf291e453"/>
+		<Metadata name="CommonModule.СчетаМагазинаМетаданные.Module" id="de129c8d-2fbb-4ae4-8c9b-a08e3d9a8411.0" configVersion="f9f85fb4e531b8821e257862358c0617709512fa"/>
+		<Metadata name="Configuration.СчетаМагазина" id="fb878ef7-7e44-4c49-b00d-47dfb2b71e92" configVersion="f068b0bb5dac7053b99b21f2e8c6b848b7739a2e"/>
+		<Metadata name="HTTPService.СчетаМагазина" id="14c04c1c-6f46-4810-a368-e47a36138ae4" configVersion="3943b53a6086865fef69772a200cf1bd0aba02a3">
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.ИсторияРегистра" id="0b025622-4982-4267-91cd-18c88c87f8b5"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Поиск" id="0ecedae1-8b28-42b6-9451-fd05c0180710"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Поиск.Method.Получить" id="369b8d2f-8fd3-4609-a1c3-52f312ab76a2"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Объект.Method.Создать" id="36bf112e-0706-4b3a-a4db-899c26277d26"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Типы.Method.Получить" id="4ef13667-55d8-4df7-b8dc-91b89bd1f6d7"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.ЗаписьРегистра.Method.Создать" id="710cdc71-c4c5-40c8-abde-cd16175b3467"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.ОписаниеТипа" id="75967a88-5ee4-4f8a-b018-0af655376205"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.ЗаписьРегистра" id="7a9a52fa-977f-4505-83c3-d1ee4c6c318e"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Регистр.Method.Получить" id="894342f4-8a4e-4243-b77e-6850ae3655dd"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.ОписаниеТипа.Method.Получить" id="8cefde02-bbab-4a2d-8f24-2d3fbdeaf458"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Типы" id="9360e8ea-266e-47d8-b554-9518853828a5"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.ИсторияРегистра.Method.Получить" id="93806288-7bd7-4f81-95d4-dfa00acef514"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Объект" id="99130163-0469-4f20-9066-f9f7f8e9d9db"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.СрезРегистра.Method.Получить" id="a61c2047-9c6f-4f53-b9b0-15495b6b3bf4"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.СрезРегистра" id="d1243f6d-9855-4a83-a0ec-109ee0c8474f"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Регистр" id="dcb13b73-d738-4410-9c4f-4c5b8aefd9ba"/>
+			<Metadata name="HTTPService.СчетаМагазина.URLTemplate.Объект.Method.Получить" id="f12aa160-2af1-4885-9a02-b32cf0cafa89"/>
+		</Metadata>
+		<Metadata name="HTTPService.СчетаМагазина.Module" id="14c04c1c-6f46-4810-a368-e47a36138ae4.0" configVersion="a9119cea2bf10492b2e2f2a71db399b72c36d806"/>
+	</ConfigVersions>
+</ConfigDumpInfo>

@@ -1,0 +1,441 @@
+{
+"type": "Справочник._ДемоНоменклатураПрисоединенныеФайлы",
+"kind": "catalog",
+"title": "Присоединенные файлы (Демо: Номенклатура)",
+"hierarchical": false,
+"hierarchy": "none",
+"subordinate": false,
+"owners": [],
+"fields": [
+{
+"name": "ИмяПредопределенныхДанных",
+"title": "Имя предопределенных данных",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 256,
+"fixedLength": false
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Предопределенный",
+"title": "Предопределенный",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Ссылка",
+"title": "Ссылка",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоНоменклатураПрисоединенныеФайлы",
+"kind": "catalog",
+"catalog": "_ДемоНоменклатураПрисоединенныеФайлы",
+"searchUrl": "/search?type=Справочник._ДемоНоменклатураПрисоединенныеФайлы"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "ПометкаУдаления",
+"title": "Пометка удаления",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+],
+"reason": "Поле назначает 1С"
+},
+{
+"name": "Наименование",
+"title": "Наименование",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 150,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Автор",
+"title": "Автор",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Справочник.ВнешниеПользователи",
+"kind": "catalog",
+"catalog": "ВнешниеПользователи",
+"searchUrl": "/search?type=Справочник.ВнешниеПользователи"
+},
+{
+"name": "Справочник.УчетныеЗаписиСинхронизацииФайлов",
+"kind": "catalog",
+"catalog": "УчетныеЗаписиСинхронизацииФайлов",
+"searchUrl": "/search?type=Справочник.УчетныеЗаписиСинхронизацииФайлов"
+},
+{
+"name": "Справочник.Пользователи",
+"kind": "catalog",
+"catalog": "Пользователи",
+"searchUrl": "/search?type=Справочник.Пользователи"
+}
+]
+},
+{
+"name": "ВладелецФайла",
+"title": "Размещение",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник._ДемоНоменклатура",
+"kind": "catalog",
+"catalog": "_ДемоНоменклатура",
+"searchUrl": "/search?type=Справочник._ДемоНоменклатура"
+}
+]
+},
+{
+"name": "ДатаЗаема",
+"title": "Дата заема",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "date",
+"kind": "date",
+"parts": "dateTime"
+}
+]
+},
+{
+"name": "ДатаМодификацииУниверсальная",
+"title": "Дата изменения (универсальное время)",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "date",
+"kind": "date",
+"parts": "dateTime"
+}
+]
+},
+{
+"name": "ДатаСоздания",
+"title": "Дата создания",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "date",
+"kind": "date",
+"parts": "dateTime"
+}
+]
+},
+{
+"name": "Зашифрован",
+"title": "Зашифрован",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "Изменил",
+"title": "Отредактировал",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник.ВнешниеПользователи",
+"kind": "catalog",
+"catalog": "ВнешниеПользователи",
+"searchUrl": "/search?type=Справочник.ВнешниеПользователи"
+},
+{
+"name": "Справочник.УчетныеЗаписиСинхронизацииФайлов",
+"kind": "catalog",
+"catalog": "УчетныеЗаписиСинхронизацииФайлов",
+"searchUrl": "/search?type=Справочник.УчетныеЗаписиСинхронизацииФайлов"
+},
+{
+"name": "Справочник.Пользователи",
+"kind": "catalog",
+"catalog": "Пользователи",
+"searchUrl": "/search?type=Справочник.Пользователи"
+}
+]
+},
+{
+"name": "ИндексКартинки",
+"title": "Индекс значка",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 10,
+"fractionDigits": 0,
+"nonnegative": false
+}
+]
+},
+{
+"name": "Описание",
+"title": "Описание",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 0,
+"fixedLength": false
+}
+]
+},
+{
+"name": "ПодписанЭП",
+"title": "Подписан электронно",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "ПутьКФайлу",
+"title": "Путь к файлу",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 0,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Размер",
+"title": "Размер (байт)",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "number",
+"kind": "number",
+"digits": 10,
+"fractionDigits": 0,
+"nonnegative": false
+}
+]
+},
+{
+"name": "Расширение",
+"title": "Расширение",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "string",
+"kind": "string",
+"length": 10,
+"fixedLength": false
+}
+]
+},
+{
+"name": "Редактирует",
+"title": "Редактирует",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник.ВнешниеПользователи",
+"kind": "catalog",
+"catalog": "ВнешниеПользователи",
+"searchUrl": "/search?type=Справочник.ВнешниеПользователи"
+},
+{
+"name": "Справочник.УчетныеЗаписиСинхронизацииФайлов",
+"kind": "catalog",
+"catalog": "УчетныеЗаписиСинхронизацииФайлов",
+"searchUrl": "/search?type=Справочник.УчетныеЗаписиСинхронизацииФайлов"
+},
+{
+"name": "Справочник.Пользователи",
+"kind": "catalog",
+"catalog": "Пользователи",
+"searchUrl": "/search?type=Справочник.Пользователи"
+}
+]
+},
+{
+"name": "Служебный",
+"title": "Служебный",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+},
+{
+"name": "СтатусИзвлеченияТекста",
+"title": "Статус извлечения текста",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Перечисление.СтатусыИзвлеченияТекстаФайлов",
+"kind": "enum",
+"enumeration": "СтатусыИзвлеченияТекстаФайлов",
+"values": [
+{
+"name": "НеИзвлечен",
+"title": "Не извлечен"
+},
+{
+"name": "Извлечен",
+"title": "Извлечен"
+},
+{
+"name": "ИзвлечьНеУдалось",
+"title": "Извлечь не удалось"
+}
+]
+}
+]
+},
+{
+"name": "ТекстХранилище",
+"title": "Текст",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Хранилище значения",
+"kind": "unsupported"
+}
+],
+"reason": "Тип поля не поддерживается этой версией: Хранилище значения"
+},
+{
+"name": "ТипХраненияФайла",
+"title": "Тип хранения файла",
+"writable": true,
+"required": true,
+"types": [
+{
+"name": "Перечисление.ТипыХраненияФайлов",
+"kind": "enum",
+"enumeration": "ТипыХраненияФайлов",
+"values": [
+{
+"name": "ВИнформационнойБазе",
+"title": "В информационной базе"
+},
+{
+"name": "ВТомахНаДиске",
+"title": "В томах"
+},
+{
+"name": "ВоВстроенномХранилищеДвоичныхДанных",
+"title": "Во встроенном хранилище двоичных данных"
+},
+{
+"name": "ВоВнешнемХранилищеДвоичныхДанных",
+"title": "Во внешнем хранилище двоичных данных"
+},
+{
+"name": "ВТомахТомНеОпределен",
+"title": "В томах (том не определен)"
+}
+]
+}
+]
+},
+{
+"name": "Том",
+"title": "Том",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "Справочник.ТомаХраненияФайлов",
+"kind": "catalog",
+"catalog": "ТомаХраненияФайлов",
+"searchUrl": "/search?type=Справочник.ТомаХраненияФайлов"
+}
+]
+},
+{
+"name": "ФайлХранилище",
+"title": "Временное хранилище файла",
+"writable": false,
+"required": false,
+"types": [
+{
+"name": "Хранилище значения",
+"kind": "unsupported"
+}
+],
+"reason": "Тип поля не поддерживается этой версией: Хранилище значения"
+},
+{
+"name": "ХранитьВерсии",
+"title": "Хранить версии",
+"writable": true,
+"required": false,
+"types": [
+{
+"name": "boolean",
+"kind": "boolean"
+}
+]
+}
+],
+"tables": [],
+"rules": {
+"validation": "Окончательное решение принимает штатная проверка заполнения; условные правила зависят от данных и настроек базы",
+"dates": "ISO 8601 без часового пояса, местное время базы",
+"null": "Штатное пустое значение; обязательность проверяет 1С, кроме владельца подчиненного справочника",
+"values": "Сервис не вычисляет реквизиты и записывает переданные значения"
+}
+}

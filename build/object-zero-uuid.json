@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "not_found",
+"message": "Объект не найден",
+"details": [
+{
+"path": null,
+"message": "Объект не найден"
+}
+]
+}
+}

@@ -1,0 +1,12 @@
+{
+"error": {
+"code": "invalid_request",
+"message": "Параметры type и q обязательны",
+"details": [
+{
+"path": null,
+"message": "Параметры type и q обязательны"
+}
+]
+}
+}
