@@ -27,27 +27,36 @@ const SPEC = readFileSync(
 
 const NAMES = ["find_types", "describe_type", "find_objects", "read_object", "create_object"];
 
-function fenceAfter(marker: string): string {
-  const start = SPEC.indexOf(marker);
+const REGISTER_SPEC = readFileSync(
+  fileURLToPath(
+    new URL("../../../../docs/superpowers/specs/2026-10-29-registers-design.md", import.meta.url),
+  ),
+  "utf8",
+);
+
+function fenceAfter(spec: string, marker: string): string {
+  const start = spec.indexOf(marker);
   assert.notEqual(start, -1, `в спецификации нет ${marker}`);
-  const match = /```text\n([\s\S]*?)\n```/.exec(SPEC.slice(start + marker.length));
+  const match = /```text\r?\n([\s\S]*?)\r?\n```/.exec(spec.slice(start + marker.length));
   assert.ok(match, `после ${marker} нет ограды`);
   return match[1]!;
 }
 
 function specInstruction(): string {
-  return fenceAfter("Общая инструкция сервера");
+  return fenceAfter(SPEC, "Общая инструкция сервера");
 }
 
-function specDescription(name: string): string {
-  const section = SPEC.slice(SPEC.indexOf("### Описания"));
+function specDescription(spec: string, name: string): string {
+  const section = spec.slice(spec.indexOf("### Описания"));
   const marker = `\`${name}\`:\n`;
-  assert.notEqual(section.indexOf(marker), -1, `в спецификации нет описания ${name}`);
-  return fenceAfter(marker);
+  const markerCr = `\`${name}\`:\r\n`;
+  const found = section.includes(marker) ? marker : markerCr;
+  assert.notEqual(section.indexOf(found), -1, `в спецификации нет описания ${name}`);
+  return fenceAfter(section, found);
 }
 
-function specTitle(name: string): string {
-  const row = new RegExp(`^\\| \`${name}\` \\| ([^|]+?) \\|`, "m").exec(SPEC);
+function specTitle(spec: string, name: string): string {
+  const row = new RegExp(`^\\| \`${name}\` \\| ([^|]+?) \\|`, "m").exec(spec);
   assert.ok(row, `в таблице нет ${name}`);
   return row[1]!;
 }
@@ -123,8 +132,8 @@ test("объявляет пять инструментов объектов с �
     const tools = all.filter((tool) => !REGISTER_NAMES.includes(tool.name));
     assert.deepEqual(tools.map((tool) => tool.name).sort(), [...NAMES].sort());
     for (const tool of tools) {
-      assert.equal(tool.title, specTitle(tool.name), `title ${tool.name}`);
-      assert.equal(tool.description, specDescription(tool.name), `description ${tool.name}`);
+      assert.equal(tool.title, specTitle(SPEC, tool.name), `title ${tool.name}`);
+      assert.equal(tool.description, specDescription(SPEC, tool.name), `description ${tool.name}`);
       assert.equal(tool.outputSchema, undefined, `outputSchema ${tool.name}`);
       assert.deepEqual(
         tool.annotations,
@@ -201,6 +210,47 @@ test("инструменты регистров объявлены, запись
       );
     }
     assert.equal(RECORD_ANNOTATIONS.destructiveHint, true);
+  } finally {
+    await close();
+  }
+});
+
+const REGISTER_REQUIRED: Record<string, string[]> = {
+  describe_register: ["name"],
+  read_register_slice: ["name"],
+  read_register_history: ["name"],
+  write_register_record: ["dimensions", "name", "period", "resources"],
+};
+
+test("объявляет четыре инструмента регистров с дословными текстами и пометками", async () => {
+  const { client, close } = await connect(fakeClient("{}").client);
+  try {
+    const { tools } = await client.listTools();
+    const registers = tools.filter((tool) => REGISTER_NAMES.includes(tool.name));
+    assert.equal(registers.length, REGISTER_NAMES.length);
+    for (const tool of registers) {
+      assert.equal(tool.title, specTitle(REGISTER_SPEC, tool.name), `title ${tool.name}`);
+      assert.equal(
+        tool.description,
+        specDescription(REGISTER_SPEC, tool.name),
+        `description ${tool.name}`,
+      );
+      assert.equal(tool.outputSchema, undefined, `outputSchema ${tool.name}`);
+      assert.deepEqual(
+        tool.annotations,
+        tool.name === "write_register_record" ? RECORD_ANNOTATIONS : READ_ANNOTATIONS,
+        `annotations ${tool.name}`,
+      );
+      const properties = tool.inputSchema.properties as Record<string, { description?: string }>;
+      for (const schema of Object.values(properties)) {
+        assert.ok(REGISTER_SPEC.includes(`«${schema.description}»`), `${tool.name} «${schema.description}»`);
+      }
+      assert.deepEqual(
+        [...(tool.inputSchema.required ?? [])].sort(),
+        [...REGISTER_REQUIRED[tool.name]!].sort(),
+        `required ${tool.name}`,
+      );
+    }
   } finally {
     await close();
   }
@@ -337,7 +387,7 @@ test("заполненный промпт подставляет аргумен�
 const TYPES_BODY =
   '{"items":[{"name":"Документ._ДемоСчетНаОплатуПокупателю"}],"hasMore":true}';
 const TYPES_DESCRIPTION =
-  "Список типов справочников и документов из сервиса объектов для контекста приложения. Это ответ сервиса без переработки: поиск по точке в полном имени, предел 100. hasMore true значит, что типов больше.";
+  "Список типов справочников, документов и независимых регистров сведений из сервиса объектов для контекста приложения. Это ответ сервиса без переработки: поиск по точке в полном имени, предел 100. hasMore true значит, что типов больше.";
 
 test("ресурс «Типы объектов 1С» при чтении отдаёт список типов заглушки", async () => {
   const { client: service, requests } = fakeClient(TYPES_BODY);
