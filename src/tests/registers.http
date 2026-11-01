@@ -88,6 +88,11 @@ Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
 GET {{$dotenv OBJECT_SERVICE_URL}}/register/history?name=РегистрСведений._ДемоЦеныНоменклатуры&Номенклатура={{$dotenv REGISTER_PRODUCT}}
 Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
 
+### Отказ: история с датой
+# @name historyWithDate
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/history?name=РегистрСведений._ДемоЦеныНоменклатуры&date=2026-01-01
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
 ### Запись: новая цена товара с сегодняшнего дня
 # @name priceRecord
 POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
@@ -99,4 +104,52 @@ Content-Type: application/json; charset=utf-8
   "period": "{{$datetime "YYYY-MM-DD"}}T00:00:00",
   "dimensions": { "Номенклатура": "{{$dotenv REGISTER_PRODUCT}}" },
   "resources": { "Цена": 1500 }
+}
+
+### Срез: цена товара на сегодня без времени
+# @name priceToday
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоЦеныНоменклатуры&date={{$datetime "YYYY-MM-DD"}}&Номенклатура={{$dotenv REGISTER_PRODUCT}}
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Запись: работник теми же значениями — табельный номер сохраняется
+# Выполнять после workerNow: период и ресурсы берутся из его ответа.
+# @name workerRecord
+POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "name": "РегистрСведений._ДемоРаботникиОрганизаций",
+  "period": "{{workerNow.response.body.$.items[0].period}}",
+  "dimensions": { "Организация": "{{$dotenv REGISTER_ORGANIZATION}}", "ФизическоеЛицо": "{{$dotenv REGISTER_PERSON}}" },
+  "resources": {
+    "ПодразделениеОрганизации": "{{workerNow.response.body.$.items[0].resources['ПодразделениеОрганизации']}}",
+    "ЗанимаемыхСтавок": {{workerNow.response.body.$.items[0].resources['ЗанимаемыхСтавок']}}
+  }
+}
+
+### Отказ: запись без ресурса
+# @name recordMissingResource
+POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "name": "РегистрСведений._ДемоЦеныНоменклатуры",
+  "period": "{{$datetime "YYYY-MM-DD"}}",
+  "dimensions": { "Номенклатура": "{{$dotenv REGISTER_PRODUCT}}" },
+  "resources": {}
+}
+
+### Отказ: запись в подчинённый регистр
+# @name subordinateRecord
+POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "name": "РегистрСведений.ОтветыНаВопросыАнкет",
+  "period": "{{$datetime "YYYY-MM-DD"}}",
+  "dimensions": {},
+  "resources": {}
 }
