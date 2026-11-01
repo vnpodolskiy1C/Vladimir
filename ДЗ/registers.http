@@ -1,0 +1,155 @@
+# Регистры сведений в сервисе объектов: по запросу на каждый маршрут.
+# Адрес, авторизация и идентификаторы демо-данных — в .env рядом (образец — .env.example).
+# Даты среза считает REST Client: сейчас и месяц назад.
+# POST записывает значение в базу: повтор на тот же период и ключ заменяет прежнее.
+
+### Поиск регистра по слову
+# @name registerTypes
+GET {{$dotenv OBJECT_SERVICE_URL}}/types?q=цен&limit=100
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Описание: РегистрСведений._ДемоЦеныНоменклатуры
+# @name pricesSchema
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений._ДемоЦеныНоменклатуры
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Описание: РегистрСведений.КурсыВалют
+# @name ratesSchema
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений.КурсыВалют
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Описание: РегистрСведений._ДемоРаботникиОрганизаций
+# @name workersSchema
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений._ДемоРаботникиОрганизаций
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Описание: непериодический регистр
+# @name nonperiodicSchema
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений._ДемоОтветственныеЛица
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: описание подчинённого регистра
+# @name subordinateSchema
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=РегистрСведений.ОтветыНаВопросыАнкет
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Поиск: подчинённый регистр не выдаётся
+# @name subordinateTypes
+GET {{$dotenv OBJECT_SERVICE_URL}}/types?q=ОтветыНаВопросыАнкет
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: описание справочника маршрутом регистра
+# @name catalogAsRegister
+GET {{$dotenv OBJECT_SERVICE_URL}}/register?name=Справочник._ДемоНоменклатура
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Срез: цена товара сейчас
+# @name priceNow
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоЦеныНоменклатуры&date={{$datetime "YYYY-MM-DDTHH:mm:ss"}}&Номенклатура={{$dotenv REGISTER_PRODUCT}}
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Срез: цена товара месяц назад
+# @name priceMonthAgo
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоЦеныНоменклатуры&date={{$datetime "YYYY-MM-DDTHH:mm:ss" -1 M}}&Номенклатура={{$dotenv REGISTER_PRODUCT}}
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Срез: курс валюты на сегодня
+# @name rateToday
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений.КурсыВалют&date={{$datetime "YYYY-MM-DD"}}&Валюта={{$dotenv REGISTER_CURRENCY}}
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Срез: где числится работник
+# @name workerNow
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоРаботникиОрганизаций&date={{$datetime "YYYY-MM-DD"}}&Организация={{$dotenv REGISTER_ORGANIZATION}}&ФизическоеЛицо={{$dotenv REGISTER_PERSON}}
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: отбор по ресурсу
+# @name sliceByResource
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоЦеныНоменклатуры&Цена=1
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: срез непериодического регистра
+# @name nonperiodicSlice
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоОтветственныеЛица
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: срез подчинённого регистра
+# @name subordinateSlice
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений.ОтветыНаВопросыАнкет
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: неверная дата среза
+# @name sliceBadDate
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений.КурсыВалют&date=2026-13-01
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### История: все цены товара
+# @name priceHistory
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/history?name=РегистрСведений._ДемоЦеныНоменклатуры&Номенклатура={{$dotenv REGISTER_PRODUCT}}
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Отказ: история с датой
+# @name historyWithDate
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/history?name=РегистрСведений._ДемоЦеныНоменклатуры&date=2026-01-01
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Запись: новая цена товара с сегодняшнего дня
+# @name priceRecord
+POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "name": "РегистрСведений._ДемоЦеныНоменклатуры",
+  "period": "{{$datetime "YYYY-MM-DD"}}T00:00:00",
+  "dimensions": { "Номенклатура": "{{$dotenv REGISTER_PRODUCT}}" },
+  "resources": { "Цена": 1500 }
+}
+
+### Срез: цена товара на сегодня без времени
+# @name priceToday
+GET {{$dotenv OBJECT_SERVICE_URL}}/register/slice?name=РегистрСведений._ДемоЦеныНоменклатуры&date={{$datetime "YYYY-MM-DD"}}&Номенклатура={{$dotenv REGISTER_PRODUCT}}
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+
+### Запись: работник теми же значениями — табельный номер сохраняется
+# Выполнять после workerNow: период и ресурсы берутся из его ответа.
+# @name workerRecord
+POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "name": "РегистрСведений._ДемоРаботникиОрганизаций",
+  "period": "{{workerNow.response.body.$.items[0].period}}",
+  "dimensions": { "Организация": "{{$dotenv REGISTER_ORGANIZATION}}", "ФизическоеЛицо": "{{$dotenv REGISTER_PERSON}}" },
+  "resources": {
+    "ПодразделениеОрганизации": "{{workerNow.response.body.$.items[0].resources['ПодразделениеОрганизации']}}",
+    "ЗанимаемыхСтавок": {{workerNow.response.body.$.items[0].resources['ЗанимаемыхСтавок']}}
+  }
+}
+
+### Отказ: запись без ресурса
+# @name recordMissingResource
+POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "name": "РегистрСведений._ДемоЦеныНоменклатуры",
+  "period": "{{$datetime "YYYY-MM-DD"}}",
+  "dimensions": { "Номенклатура": "{{$dotenv REGISTER_PRODUCT}}" },
+  "resources": {}
+}
+
+### Отказ: запись в подчинённый регистр
+# @name subordinateRecord
+POST {{$dotenv OBJECT_SERVICE_URL}}/register/record
+Authorization: {{$dotenv OBJECT_SERVICE_AUTH}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "name": "РегистрСведений.ОтветыНаВопросыАнкет",
+  "period": "{{$datetime "YYYY-MM-DD"}}",
+  "dimensions": {},
+  "resources": {}
+}
